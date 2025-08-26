@@ -4,6 +4,8 @@
 Aplicação fullstack construída com **React Native (Expo)** no frontend e **NestJS** no backend, utilizando **PostgreSQL** como banco de dados.  
 Todo o ambiente é gerenciado com **Docker Compose**.
 
+<img src="https://github.com/user-attachments/assets/c6da51b5-d442-4b2e-bd0e-c6f1c4c9802a" alt="Image" width="300"/>
+
 ---
 
 ## 🛠️ Tecnologias
