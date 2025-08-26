@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateOrderDto } from '../dto/create-order.dto';
 import { OrderResponseDto } from '../dto/order-response.dto'; 
-import { UpdateOrderDto } from '../dto//update-order.dto'
+import { UpdateOrderDto } from '../dto/update-order.dto'
 import { plainToInstance } from 'class-transformer'; 
 import { Order } from '@prisma/client'; 
 
