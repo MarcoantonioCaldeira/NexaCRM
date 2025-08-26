@@ -5,6 +5,11 @@ Aplicação fullstack construída com **React Native (Expo)** no frontend e **Ne
 Todo o ambiente é gerenciado com **Docker Compose**.
 
 <img src="https://github.com/user-attachments/assets/c6da51b5-d442-4b2e-bd0e-c6f1c4c9802a" alt="Image" width="300"/>
+<img src="https://github.com/user-attachments/assets/5c336d32-1053-4800-a341-456620fd0649" alt="Image" width="300" />
+<img src="https://github.com/user-attachments/assets/dbf57840-a125-4e01-9516-3c8560d35215" alt="Image" width="300" />
+<img src="https://github.com/user-attachments/assets/ea36d71d-63ae-4576-b0be-5e1dd00ed12f" alt="Image" width="300" />
+<img src="https://github.com/user-attachments/assets/2fa1f1e1-0608-4c7b-920c-8e0e9e889426" alt="Image" width="300" />
+<img src="https://github.com/user-attachments/assets/ceee7732-e52a-4cc3-90b4-1a76e615541a" alt="Image" width="300" />
 
 ---
 
