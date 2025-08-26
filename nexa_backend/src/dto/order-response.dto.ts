@@ -5,7 +5,7 @@ export class OrderResponseDto {
   id: number;
   status: string;
   @Expose({ name: 'totalPrice' })
-  calculatedTotalPrice: number;
+  totalPrice: number;
   @Type(() => OrderItemResponseDto)
   items: OrderItemResponseDto[];
 }

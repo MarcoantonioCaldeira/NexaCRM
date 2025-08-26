@@ -4,7 +4,7 @@ import { CreateOrderDto } from '../dto/create-order.dto';
 import { OrderResponseDto } from '../dto/order-response.dto'; 
 import { UpdateOrderDto } from '../dto/update-order.dto'
 import { plainToInstance } from 'class-transformer'; 
-import { Order } from '@prisma/client'; 
+import { Order } from '@prisma/client';
 
 @Injectable()
 export class OrdersService {
@@ -32,13 +32,13 @@ export class OrdersService {
       },
     });
 
-    const calculatedTotalPrice = createdOrder.items.reduce((sum, currentItem) => {
+    const totalPrice = createdOrder.items.reduce((sum, currentItem) => {
       return sum + (currentItem.price * currentItem.quantity);
     }, 0);
 
     return plainToInstance(OrderResponseDto, {
       ...createdOrder,
-      calculatedTotalPrice: parseFloat(calculatedTotalPrice.toFixed(2)),
+      totalPrice: parseFloat(totalPrice.toFixed(2)),
     });
   }
 
@@ -60,13 +60,13 @@ export class OrdersService {
       throw new NotFoundException(`Pedido com ID ${id} não encontrado.`);
     }
 
-    const calculatedTotalPrice = order.items.reduce((sum, currentItem) => {
+    const totalPrice = order.items.reduce((sum, currentItem) => {
       return sum + (currentItem.price * currentItem.quantity);
     }, 0);
 
     return plainToInstance(OrderResponseDto, {
       ...order,
-      calculatedTotalPrice: parseFloat(calculatedTotalPrice.toFixed(2)),
+      totalPrice: parseFloat(totalPrice.toFixed(2)),
     });
   }
 
@@ -84,32 +84,39 @@ export class OrdersService {
     });
 
     return orders.map(order => {
-      const calculatedTotalPrice = order.items.reduce((sum, currentItem) => {
+      const totalPrice = order.items.reduce((sum, currentItem) => {
         return sum + (currentItem.price * currentItem.quantity);
       }, 0);
       return plainToInstance(OrderResponseDto, {
         ...order,
-        calculatedTotalPrice: parseFloat(calculatedTotalPrice.toFixed(2)),
+        totalPrice: parseFloat(totalPrice.toFixed(2)),
       });
     });
   }
 
+
   async update(id: number, updateOrderDto: UpdateOrderDto): Promise<Order> {
+    
     const existingOrder = await this.prisma.order.findUnique({
       where: { id: id },
     });
+
     if (!existingOrder) {
-      throw new NotFoundException(`Pedido com ID ${id} não encontrado ou não pertence ao usuário.`);
+      throw new NotFoundException(`Pedido com ID ${id} não encontrado.`);
     }
 
-    // Transform items to Prisma format if present
     const { items, ...rest } = updateOrderDto;
     let prismaData: any = { ...rest };
+
     if (items) {
       prismaData.items = {
-        deleteMany: {}, // Remove all existing items
+        deleteMany: {},
         create: items.map(item => ({
           quantity: item.quantity,
+          price: item.product.price,
+          product: {
+            connect: { id: item.product.id },
+          },
         })),
       };
     }
@@ -117,8 +124,16 @@ export class OrdersService {
     return this.prisma.order.update({
       where: { id: id },
       data: prismaData,
+      include: {
+        items: {
+          include: {
+            product: true,
+          },
+        },
+      },
     });
   }
+
 
   async remove(id: number): Promise<Order> {
     const existingOrder = await this.prisma.order.findUnique({
