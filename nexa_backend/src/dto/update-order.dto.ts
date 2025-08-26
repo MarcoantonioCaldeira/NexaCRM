@@ -1,5 +1,3 @@
-// src/orders/dto/update-order.dto.ts
-
 import { IsOptional, IsString, IsEnum, IsNumber, ValidateNested } from 'class-validator';
 import { Exclude } from 'class-transformer';
 import { Type } from 'class-transformer';

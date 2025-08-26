@@ -21,6 +21,12 @@ export const api = {
   async deleteOrder(id: number) {
     const res = await axios.delete(`http://192.168.1.103:3000/orders/${id}`);
     return res.data;
+  },
+
+  async updateOrder(id: number, payload: any) {
+    const res = await axios.patch(`http://192.168.1.103:3000/orders/${id}`, payload);
+    console.log(res.data);
+    return res.data;
   }
 
 };
